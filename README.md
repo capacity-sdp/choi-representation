@@ -17,5 +17,7 @@
 
 <details>
   <summary> <strong> Choi operator </strong> </summary>
+  </br>
   
+  ![example3](https://github.com/capacity-sdp/choi-representation/blob/main/pic/choi.jpg)
 </details>
