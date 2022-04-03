@@ -52,19 +52,24 @@ def symmetry(d,q,channel):
     T = choi(d,q,channel)
 
     U = unitary_group.rvs(d)
-    U_bar = np.conjugate(U)
-    
-    A = np.kron(U,U_bar)
-    B = np.conjugate(np.transpose(np.kron(U,U_bar)))
-    C = np.kron(U,U)
-    D = np.conjugate(np.transpose(np.kron(U,U)))
 
     if channel == depol:
-        sym = np.dot(np.dot(A,T),B)
+
+        U_bar = np.conjugate(U)
+        tensor1 = np.kron(U,U_bar)
+        tensor2 = np.conjugate(np.transpose(np.kron(U,U_bar)))
+
+        sym = np.dot(np.dot(tensor1,T),tensor2)
+
     if channel == wer_hol:
-        sym = np.dot(np.dot(C,T),D)
+
+        tensor1 = np.kron(U,U)
+        tensor2 = np.conjugate(np.transpose(np.kron(U,U)))
+
+        sym = np.dot(np.dot(tensor1,T),tensor2)
         
     return T, sym
+
 
 
 
