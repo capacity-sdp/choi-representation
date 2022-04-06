@@ -21,3 +21,9 @@
   
   ![example3](https://github.com/capacity-sdp/choi-representation/blob/main/pic/choi.jpg)
 </details>
+
+
+
+
+![example4](https://github.com/capacity-sdp/choi-representation/blob/main/plot/werner/wern_2_10.png)
+
