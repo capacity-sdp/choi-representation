@@ -72,10 +72,19 @@ def plot_(dimension, channel):
 
     plt.plot(q_vals, c)
 
-    plt.title('depol channel with d=' + str(d))
-    plt.xlabel('q-parameter')
-    plt.ylabel('quantum capacity')
+    if channel[0] == "d":
+        plt.title('Depolarizing Channel with d=' + str(d))
+        plt.xlabel('q-parameter')
+        plt.ylabel('quantum capacity')
+        plt.savefig('./plot/depol_' + str(d) + '.png')
 
-    plt.show()
+    if channel[0] == "w":
+        plt.title('Werner-Holevo Channel with d=' + str(d))
+        plt.xlabel('p-parameter')
+        plt.ylabel('quantum capacity')
+        plt.savefig('./plot/wern_' + str(d) + '.png')
 
-plot_(5, "de")
+    #plt.show()
+
+
+plot_(2, "d")
