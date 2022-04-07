@@ -42,6 +42,7 @@ def choi_(pq, d, channel):
         return choi_wern(pq, d)
 
 
+# plots the capacity bound for depolarizing/ werner channel with a given d
 def plot_(dimension, channel):
     start = time.time()
     d = dimension
@@ -72,7 +73,8 @@ def plot_(dimension, channel):
         prob.solve()
         c.append(log2(prob.value))
 
-    plt.plot(q_vals, c)
+    plt.plot(q_vals, c, label="d = " + str(d))
+    plt.legend(loc="upper left")
 
     if channel[0] == "d":
         plt.title('Depolarizing Channel with d=' + str(d))
@@ -91,9 +93,7 @@ def plot_(dimension, channel):
     print(end - start)
 
 
-
-
-
+# plot a general plot of capacity bound of depolar/werner channels with a given lower/upper d
 def plot_all_(lower, upper, channel):
     start = time.time()
     for i in range(lower, upper + 1):
@@ -105,7 +105,10 @@ def plot_all_(lower, upper, channel):
         if channel[0] == "d":
             q_vals = np.arange(0, d ** 2 / (d ** 2 - 1), 0.01, dtype=float)
         if channel[0] == "w":
-            q_vals = np.arange(d / (d + 1), d / (d - 1), 0.01, dtype=float)
+            t = np.arange(0, 1, 0.01, dtype=float)
+            q_vals = d*(t / (d + 1) + (1 - t) / (d - 1))
+            #print(q_vals)
+            #q_vals = np.arange(d / (d + 1), d / (d - 1), 0.01, dtype=float)
 
         Vab = cp.Variable((D, D), symmetric=True)
         Yab = cp.Variable((D, D), symmetric=True)
@@ -125,7 +128,12 @@ def plot_all_(lower, upper, channel):
             prob.solve()
             c.append(log2(prob.value))
 
-        plt.plot(q_vals, c)
+        #plt.plot(q_vals, c)
+        if (6 >= d >= 2) or d == 10:
+            plt.plot(t, c, label="d = " + str(d))
+            plt.legend(loc="upper right")
+        else:
+            plt.plot(t, c)
 
     if channel[0] == "d":
         plt.title('Depolarizing Channel with d from ' + str(lower) + ' to ' + str(upper))
@@ -135,7 +143,8 @@ def plot_all_(lower, upper, channel):
 
     if channel[0] == "w":
         plt.title('Werner-Holevo Channel with d from ' + str(lower) + ' to ' + str(upper))
-        plt.xlabel('p-parameter')
+        #plt.xlabel('p-parameter')
+        plt.xlabel('t-parameter')
         plt.ylabel('quantum capacity')
         plt.savefig('./plot/werner/wern_' + str(lower) + '_' + str(upper) + '.png')
 
@@ -145,5 +154,5 @@ def plot_all_(lower, upper, channel):
 
 
 #plot_(5, "d")
-#plot_(10, "w")
+#plot_(2, "w")
 plot_all_(2, 10, "w")
