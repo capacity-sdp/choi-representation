@@ -85,7 +85,7 @@ def plot_(dimension, channel):
     if channel[0] == "w":
         plt.title('Werner-Holevo Channel with d=' + str(d))
         plt.xlabel('p-parameter')
-        plt.ylabel('quantum capacity')
+        plt.ylabel("log" + r'$\Gamma(N)$' + " - quantum capacity upperbound")
         plt.savefig('./plot/werner/wern_' + str(d) + '.png')
 
     # plt.show()
@@ -145,7 +145,7 @@ def plot_all_(lower, upper, channel):
         plt.title('Werner-Holevo Channel with d from ' + str(lower) + ' to ' + str(upper))
         #plt.xlabel('p-parameter')
         plt.xlabel('t-parameter')
-        plt.ylabel('quantum capacity')
+        plt.ylabel("log" + r'$\Gamma(N)$')
         plt.savefig('./plot/werner/wern_' + str(lower) + '_' + str(upper) + '.png')
 
         # plt.show()
