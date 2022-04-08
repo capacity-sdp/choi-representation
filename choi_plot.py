@@ -102,11 +102,14 @@ def plot_all_(lower, upper, channel):
         c = []
 
         q_vals = []
+        t = np.arange(0, 1, 0.01, dtype=float)
         if channel[0] == "d":
-            q_vals = np.arange(0, d ** 2 / (d ** 2 - 1), 0.01, dtype=float)
+            #q_vals = np.arange(0, d ** 2 / (d ** 2 - 1), 0.01, dtype=float)
+            q_vals = (1 - t) * (d ** 2 / (d ** 2 - 1))
         if channel[0] == "w":
-            t = np.arange(0, 1, 0.01, dtype=float)
-            q_vals = d*(t / (d + 1) + (1 - t) / (d - 1))
+            #t = np.arange(0, 1, 0.01, dtype=float)
+            q_vals = t * (d / (d + 1)) + (1 - t) * (d / (d - 1))
+            #q_vals = d * ((1 - t) / (d + 1) + t / (d - 1))
             #print(q_vals)
             #q_vals = np.arange(d / (d + 1), d / (d - 1), 0.01, dtype=float)
 
@@ -131,14 +134,18 @@ def plot_all_(lower, upper, channel):
         #plt.plot(q_vals, c)
         if (6 >= d >= 2) or d == 10:
             plt.plot(t, c, label="d = " + str(d))
-            plt.legend(loc="upper right")
+            if channel[0] == "d":
+                plt.legend(loc="upper left")
+            else:
+                plt.legend(loc="upper right")
         else:
             plt.plot(t, c)
 
     if channel[0] == "d":
         plt.title('Depolarizing Channel with d from ' + str(lower) + ' to ' + str(upper))
-        plt.xlabel('q-parameter')
-        plt.ylabel('quantum capacity')
+        #plt.xlabel('q-parameter')
+        plt.xlabel('t-parameter')
+        plt.ylabel("log" + r'$\Gamma(N)$')
         plt.savefig('./plot/depol/depol_' + str(lower) + '_' + str(upper) + '.png')
 
     if channel[0] == "w":
@@ -155,4 +162,5 @@ def plot_all_(lower, upper, channel):
 
 #plot_(5, "d")
 #plot_(2, "w")
-plot_all_(2, 10, "w")
+#plot_all_(2, 4, "w")
+plot_all_(2, 10, "d")
