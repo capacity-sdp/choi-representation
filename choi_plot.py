@@ -105,7 +105,7 @@ def plot_all_(lower, upper, channel):
         t = np.arange(0, 1, 0.01, dtype=float)
         if channel[0] == "d":
             #q_vals = np.arange(0, d ** 2 / (d ** 2 - 1), 0.01, dtype=float)
-            q_vals = (1 - t) * (d ** 2 / (d ** 2 - 1))
+            q_vals = t * (d ** 2 / (d ** 2 - 1))
         if channel[0] == "w":
             #t = np.arange(0, 1, 0.01, dtype=float)
             q_vals = t * (d / (d + 1)) + (1 - t) * (d / (d - 1))
@@ -134,10 +134,7 @@ def plot_all_(lower, upper, channel):
         #plt.plot(q_vals, c)
         if (6 >= d >= 2) or d == 10:
             plt.plot(t, c, label="d = " + str(d))
-            if channel[0] == "d":
-                plt.legend(loc="upper left")
-            else:
-                plt.legend(loc="upper right")
+            plt.legend(loc="upper right")
         else:
             plt.plot(t, c)
 
