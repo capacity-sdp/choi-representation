@@ -143,7 +143,10 @@ def plot_all_(lower, upper, channel):
         #plt.xlabel('q-parameter')
         plt.xlabel('t-parameter')
         plt.ylabel("log" + r'$\Gamma(N)$')
-        plt.savefig('./plot/depol/depol_' + str(lower) + '_' + str(upper) + '.png')
+        #plt.savefig('./plot/depol/depol_' + str(lower) + '_' + str(upper) + '.png')
+        plt.ylim([-0.05, 1])
+        #plt.margins(x=0.1)
+        plt.savefig('./plot/depol/depol_' + str(lower) + '_' + str(upper) + '_bound.png')
 
     if channel[0] == "w":
         plt.title('Werner-Holevo Channel with d from ' + str(lower) + ' to ' + str(upper))
