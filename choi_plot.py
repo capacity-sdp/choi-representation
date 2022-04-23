@@ -163,4 +163,6 @@ def plot_all_(lower, upper, channel):
 #plot_(5, "d")
 #plot_(2, "w")
 #plot_all_(2, 4, "w")
-plot_all_(2, 10, "d")
+# plot_all_(2, 10, "d")
+a = choi_depol(1,3)
+print(a)
