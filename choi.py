@@ -9,6 +9,7 @@ import itertools as it
 import numpy as np
 import scipy as sp
 from scipy.stats import unitary_group
+import cvxpy as cp
 
 def basis_vec(d):
 
@@ -71,7 +72,43 @@ def symmetry(d,q,channel):
     return T, sym
 
 
+    
+
+def gamma(d):
+    basis = []
+    for i in range(d):
+        basis.append(i)
+        a = list(it.product(basis,repeat=2))
+    gamma = np.zeros((d**2,d**2))
+    for pair in a:
+
+        i = basis_vec(d)[pair[0]]
+        j = basis_vec(d)[pair[1]]
+        
+        tensor = np.dot(i,np.transpose(j))
+        
+
+        gamma += np.kron(tensor,tensor)
+    return gamma
 
 
+def swap(d):
+    basis = []
+    for i in range(d):
+        basis.append(i)
+        a = list(it.product(basis,repeat=2))
+    swap = np.zeros((d**2,d**2))
+    for pair in a:
 
+        i = basis_vec(d)[pair[0]]
+        j = basis_vec(d)[pair[1]]
+        
+        tensor1 = np.dot(i,np.transpose(j))
+        tensor2 = np.dot(j,np.transpose(i))
+        
 
+        swap += np.kron(tensor1,tensor2)
+    return swap
+print(gamma(2),swap(2))
+
+        
