@@ -109,6 +109,7 @@ def swap(d):
 
         swap += np.kron(tensor1,tensor2)
     return swap
-print(gamma(2),swap(2))
-
+print(gamma(3))
+print()
+print(swap(3))
         

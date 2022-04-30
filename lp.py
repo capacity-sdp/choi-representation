@@ -13,6 +13,7 @@ Created on Sun Apr  3 16:22:12 2022
 """
 
 from choi import *
+import numpy as np
 
 
 import cvxpy as cp
@@ -22,20 +23,20 @@ from math import log
 
 def optimization(d,q,channel):
 
-    r1 = cp.Variable()
-    r2 = cp.Variable()
-    r3 = cp.Variable()
-    r4 = cp.Variable()
+    r1 = cp.Variable(1)
+    r2 = cp.Variable(1)
+    r3 = cp.Variable(1)
+    r4 = cp.Variable(1)
 
-    mu = cp.Variable()
-    identity = np.identity(d**2)
+    mu = cp.Variable(1)
+    ident = np.identity(d**2)
+    swapp = swap(d)
+    gammma = gamma(d)
 
-    constraints = [r1 * identity + r2 * swap(d) >> 0]
-    constraints += [r3 * identity + r4 * swap(d) >> 0]
-    constraints += [(r1-r3) * identity + (r2-r4) * gamma(d) >> choi(d,q,channel)]
-    constraints += [r1 + r2 + r3 + r4 <= mu]
-
-    
+    constraints = [r1 * ident + r2 * swapp >> 0]
+    constraints += [r3 * ident + r4 * swapp >> 0]
+    constraints += [((r1-r3) * ident + (r2-r4) * gammma) >> choi(d,q,channel)]
+    constraints += [mu >= d * r1 + r2 + d * r3 + r4]
 
     prob = cp.Problem(cp.Minimize(mu), constraints)
 
